@@ -23,6 +23,12 @@ document.querySelector("#point").addEventListener('click', () => {
     }
 });
 
+document.querySelectorAll(".operation").forEach((button) => {
+    button.addEventListener('click', () => {
+        appendValue(button.textContent);
+    });
+});
+
 function appendValue(value) {
     inputField.value += value;
 }
