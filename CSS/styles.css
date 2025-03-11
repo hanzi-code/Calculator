@@ -1,0 +1,65 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+
+button {
+    border: none;
+    border-radius: 2px;
+}
+
+button:hover {
+    box-shadow: 1px 1px 4px black;
+}
+
+.number {
+    background-color: orange;
+    display: flex;
+    padding: 6px;
+}
+
+.operation {
+    background-color: lightblue;
+    padding: 6px;
+}
+
+.inputHere {
+    padding: 6px;
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 3px;
+}
+
+.numbers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+}
+
+.operations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+}
+
+.inputHere:focus {
+    box-shadow: 1px 1px 1px black;
+    border-radius: 3px;
+    outline: none;
+}
+
+.container {
+    border: 3px solid darkred;
+    background-color: bisque;
+}
