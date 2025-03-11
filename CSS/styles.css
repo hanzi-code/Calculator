@@ -16,6 +16,11 @@ button {
     border-radius: 3px;
 }
 
+.point {
+    background-color: lightblue;
+    border: 1px solid lightblue;
+}
+
 button:hover {
     box-shadow: 1px 1px 4px black;
 }
