@@ -15,10 +15,12 @@ button {
     border: none;
     border-radius: 3px;
 }
-
+.allClear,
+.deleteBtn,
 .point {
     background-color: lightblue;
     border: 1px solid lightblue;
+    padding: 6px;
 }
 
 button:hover {
@@ -72,4 +74,5 @@ button:hover {
     border: 3px solid darkred;
     background-color: bisque;
     padding: 6px;
+    border-radius: 6px;
 }
