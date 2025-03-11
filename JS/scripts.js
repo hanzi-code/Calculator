@@ -16,10 +16,10 @@ document.querySelectorAll(".number").forEach((button) => {
 
 document.querySelector("#point").addEventListener('click', () => {
     const currentValue = inputField.value;
-    if (currentValue.includes('.')) {
-        console.log("No more dots for you!")
-    } else {
+    if (!currentValue.includes('.') && currentValue.length) {
         appendValue('.');
+    } else {
+        console.log("No more dots for you!")
     }
 });
 
