@@ -20,8 +20,6 @@ document.querySelector("#point").addEventListener('click', () => {
     const currentValue = inputField.value;
     if (!currentValue.includes('.') && currentValue.length) {
         appendValue('.');
-    } else {
-        console.log("No more dots for you!")
     }
 });
 
@@ -65,19 +63,14 @@ function appendValue(value) {
 
 function operate(expression) {
     try {
-        console.log('Original Expression: ' + expression)
-
         // Check if the expression has at least one operator and two numbers
         if (!/[+\-*/]/.test(expression)) {
-            console.log('No Operator Found.');
             return 'Error: Invalid Expression';
         }
 
         const expressionArray = expression.split(/([+\-*/])/g).filter(token => token.trim() !== '');
-        console.log('Array Expression: ' + expressionArray);
 
         if (!expressionArray || expressionArray.length < 3) {
-            console.log('Invalid Expression: ' + expressionArray);
             return 'Error: Incomplete Expression';
         }
 
@@ -110,7 +103,6 @@ function operate(expression) {
 
         return result;
     } catch (error) {
-        console.error('Calculation Error: ' + error);
         return 'Error: Calculation Failed';
     }
 }
