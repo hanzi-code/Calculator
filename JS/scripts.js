@@ -1,3 +1,4 @@
+let expression = '';
 let inputField = document.querySelector("#inputField");
 
 document.querySelector("#backspace").addEventListener('click', () => {
@@ -6,6 +7,7 @@ document.querySelector("#backspace").addEventListener('click', () => {
 
 document.querySelector("#allClear").addEventListener('click', () => {
     inputField.value = '';
+    expression = '';
 });
 
 document.querySelectorAll(".number").forEach((button) => {
@@ -24,11 +26,106 @@ document.querySelector("#point").addEventListener('click', () => {
 });
 
 document.querySelectorAll(".operation").forEach((button) => {
-    button.addEventListener('click', () => {
-        appendValue(button.textContent);
+    button.addEventListener('click', (event) => {
+        let target = event.target;
+        switch (target.id) {
+            case 'add':
+                appendValue('+');
+                inputField.value = '';
+                break;
+            case 'sub':
+                appendValue('-');
+                inputField.value = '';
+                break;
+            case 'div':
+                appendValue('/');
+                inputField.value = '';
+                break;
+            case 'multi':
+                appendValue('*');
+                inputField.value = '';
+                break;
+            case 'equal':
+                const result = operate(expression);
+                inputField.value = '';
+                inputField.value = result;
+                expression = result.toString();
+                break;
+        }
     });
 });
 
 function appendValue(value) {
     inputField.value += value;
+    expression += value;
+}
+
+function operate(expression) {
+    try {
+        console.log('Original Expression: ' + expression)
+
+        // Check if the expression has at least one operator and two numbers
+        if (!/[+\-*/]/.test(expression)) {
+            console.log('No Operator Found.');
+            return 'Error: Invalid Expression'; 
+        }
+
+        const expressionArray = expression.split(/([+\-*/])/g).filter(token => token.trim() !== '');
+        console.log('Array Expression: ' + expressionArray);
+
+        if (!expressionArray || expressionArray.length < 3) {
+            console.log('Invalid Expression: ' + expressionArray);
+            return 'Error: Incomplete Expression';
+        }
+
+        // Converting the numbers to Number() type
+        for (let i = 0; i < expressionArray.length; i++) {
+            if (!isNaN(expressionArray[i])) {
+                expressionArray[i] = Number(expressionArray[i]);
+            }
+        }
+
+        // Handle multiplication and division
+        for (let i = 1; i < expressionArray.length; i += 2) {
+            const operator = expressionArray[i];
+            if (operator === '*' || operator === '/') {
+                const left = expressionArray[i - 1];
+                const right = expressionArray[i + 1];
+                const result = applyOperation(left, right, operator);
+                expressionArray.splice(i - 1, 3, result); // Replace the operation with the result
+                i -= 2; // Adjust index after splicing
+            }
+        }
+
+        // Handle addition and subtraction
+        let result = expressionArray[0];
+        for (let i = 1; i < expressionArray.length; i += 2) {
+            const operator = expressionArray[i];
+            const right = expressionArray[i + 1];
+            result = applyOperation(result, right, operator);
+        }
+
+        return result;
+    } catch (error) {
+        console.error('Calculation Error: ' + error);
+        return 'Error: Calculation Failed';
+    }
+}
+
+function applyOperation(left, right, operator) {
+    switch (operator) {
+        case '+':
+            return left + right;
+        case '-':
+            return left - right;
+        case '*':
+            return left * right;
+        case '/':
+            if (left === 0 || right === 0) {
+                return '!Error! !Division by 0!'
+            }
+            return left / right;
+        default:
+            return 'Unknown Operator.'
+    }
 }
