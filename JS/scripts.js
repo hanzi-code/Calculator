@@ -28,29 +28,32 @@ document.querySelector("#point").addEventListener('click', () => {
 document.querySelectorAll(".operation").forEach((button) => {
     button.addEventListener('click', (event) => {
         let target = event.target;
-        switch (target.id) {
-            case 'add':
-                appendValue('+');
-                inputField.value = '';
-                break;
-            case 'sub':
-                appendValue('-');
-                inputField.value = '';
-                break;
-            case 'div':
-                appendValue('/');
-                inputField.value = '';
-                break;
-            case 'multi':
-                appendValue('*');
-                inputField.value = '';
-                break;
-            case 'equal':
-                const result = operate(expression);
-                inputField.value = '';
-                inputField.value = result;
-                expression = result.toString();
-                break;
+        const currentValue = inputField.value;
+        if (currentValue.length > 0 && !isNaN(currentValue[currentValue.length - 1])) {
+            switch (target.id) {
+                case 'add':
+                    appendValue('+');
+                    inputField.value = '';
+                    break;
+                case 'sub':
+                    appendValue('-');
+                    inputField.value = '';
+                    break;
+                case 'div':
+                    appendValue('/');
+                    inputField.value = '';
+                    break;
+                case 'multi':
+                    appendValue('*');
+                    inputField.value = '';
+                    break;
+                case 'equal':
+                    const result = operate(expression);
+                    inputField.value = '';
+                    inputField.value = result;
+                    expression = result.toString();
+                    break;
+            }
         }
     });
 });
@@ -67,7 +70,7 @@ function operate(expression) {
         // Check if the expression has at least one operator and two numbers
         if (!/[+\-*/]/.test(expression)) {
             console.log('No Operator Found.');
-            return 'Error: Invalid Expression'; 
+            return 'Error: Invalid Expression';
         }
 
         const expressionArray = expression.split(/([+\-*/])/g).filter(token => token.trim() !== '');
